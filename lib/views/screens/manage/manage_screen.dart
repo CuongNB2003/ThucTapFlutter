@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:thuc_tap_flutter/model/nhan_vien.dart';
-import 'package:thuc_tap_flutter/views/screens/manage/detail_nv_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:number_paginator/number_paginator.dart';
+import 'package:thuc_tap_flutter/model/nhan_vien.dart';
+import 'package:thuc_tap_flutter/views/screens/manage/detail_nv_screen.dart';
 
 class ManageScreen extends StatefulWidget {
   const ManageScreen({super.key});
@@ -239,7 +239,7 @@ class ManageScreenState extends State<ManageScreen> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 580,
+                                  height: 590,
                                   child: currentPage < pages.length
                                       ? pages[currentPage]
                                       : null,

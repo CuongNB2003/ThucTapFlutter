@@ -14,13 +14,15 @@ class AuthService extends ChangeNotifier{
         email: email,
         password: pass,
       );
-
       // lưu user vào db
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
       }, SetOptions(merge: true));
+
       return userCredential;
+
+
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
@@ -33,6 +35,12 @@ class AuthService extends ChangeNotifier{
           email: email,
           password: pass,
       );
+
+      // lưu user vào db
+      _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'uid' : userCredential.user!.uid,
+        'email' : email,
+      });
 
       return userCredential;
     } on FirebaseAuthException catch (e) {

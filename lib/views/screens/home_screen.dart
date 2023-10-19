@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
+import 'package:thuc_tap_flutter/views/screens/chat/list_chat_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/add_nv_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/manage_screen.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('Chat'),
+    ListChatScreen(),
     ManageScreen(),
     Text('Cài đặt'),
   ];
