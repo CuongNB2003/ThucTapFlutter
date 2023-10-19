@@ -54,6 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:120971343274:android:729c4fe862704b35fee7d3',
     messagingSenderId: '120971343274',
     projectId: 'quanlynhanvienflutter-efe04',
+    databaseURL: 'https://quanlynhanvienflutter-efe04-default-rtdb.firebaseio.com',
     storageBucket: 'quanlynhanvienflutter-efe04.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:120971343274:ios:b51052aed287e8cffee7d3',
     messagingSenderId: '120971343274',
     projectId: 'quanlynhanvienflutter-efe04',
+    databaseURL: 'https://quanlynhanvienflutter-efe04-default-rtdb.firebaseio.com',
     storageBucket: 'quanlynhanvienflutter-efe04.appspot.com',
     iosBundleId: 'com.example.thucTapFlutter',
   );

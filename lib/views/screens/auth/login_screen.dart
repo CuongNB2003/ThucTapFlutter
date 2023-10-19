@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
 import 'package:thuc_tap_flutter/validate/auth_validate.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   final void Function()? onTap;
@@ -33,7 +33,11 @@ class LoginScreenState extends State<LoginScreen> {
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signInWithEmailAndPassword(
-            userNameCtrl.text, passWordCtrl.text);
+          userNameCtrl.text,
+          passWordCtrl.text,
+        );
+        // ignore: use_build_context_synchronously
+        FocusScope.of(context).unfocus();
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(

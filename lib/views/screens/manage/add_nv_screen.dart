@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/model/nhan_vien.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_gate.dart';
 import 'package:thuc_tap_flutter/services/nhanvien/nhanvien_service.dart';
@@ -6,7 +7,6 @@ import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button_ontline.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
-import 'package:flutter/material.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});

@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:thuc_tap_flutter/model/nhan_vien.dart';
-import 'package:thuc_tap_flutter/views/screens/manage/detail_nv_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:number_paginator/number_paginator.dart';
+import 'package:thuc_tap_flutter/model/nhan_vien.dart';
+import 'package:thuc_tap_flutter/views/screens/manage/detail_nv_screen.dart';
 
 class ManageScreen extends StatefulWidget {
   const ManageScreen({super.key});
@@ -31,13 +31,12 @@ class ManageScreenState extends State<ManageScreen> {
   Future<void> fetchData() async {
     String url = 'https://650d823ca8b42265ec2c502e.mockapi.io/api/user';
     // String url = 'http://192.168.1.6:3000/api/user';
-    final response =
-    await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       // ['data'];
       final List<NhanVien> userList =
-      jsonData.map((user) => NhanVien.fromJson(user)).toList();
+          jsonData.map((user) => NhanVien.fromJson(user)).toList();
       setState(() {
         _data = userList;
       });
@@ -50,13 +49,12 @@ class ManageScreenState extends State<ManageScreen> {
   Future<void> searchData(String search) async {
     String url = 'https://650d823ca8b42265ec2c502e.mockapi.io/api/user';
     // String url = 'http://192.168.1.6:3000/api/user';
-    final response = await http
-        .get(Uri.parse('$url?name=$search'));
+    final response = await http.get(Uri.parse('$url?name=$search'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       // ['data'];
       List<NhanVien> searchResult =
-      jsonData.map((user) => NhanVien.fromJson(user)).toList();
+          jsonData.map((user) => NhanVien.fromJson(user)).toList();
       setState(() {
         _data = searchResult;
       });
@@ -85,8 +83,7 @@ class ManageScreenState extends State<ManageScreen> {
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child:
-            DataTable(
+            child: DataTable(
                 border: TableBorder.all(
                   color: Colors.blue,
                   width: 2,
@@ -124,146 +121,151 @@ class ManageScreenState extends State<ManageScreen> {
                 rows: dataShow
                     .map(
                       (user) => DataRow(
-                      cells: [
-                        DataCell(
-                          Text(
-                            user.name.toString(),
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        DataCell(
-                          Text(
-                            user.email.toString(),
-                            style: const TextStyle(fontSize: 18),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        DataCell(
-                          Text(
-                            user.phone.toString(),
-                            style: const TextStyle(fontSize: 18),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                      onSelectChanged: (newValue) {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(data: user),));
-                      }),
-                ).toList()),
+                          cells: [
+                            DataCell(
+                              Text(
+                                user.name.toString(),
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                user.email.toString(),
+                                style: const TextStyle(fontSize: 18),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                user.phone.toString(),
+                                style: const TextStyle(fontSize: 18),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                          onSelectChanged: (newValue) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailScreen(data: user),
+                                ));
+                          }),
+                    )
+                    .toList()),
           ),
         ),
       );
     }
 
     return SafeArea(
-        child: Container(
-          alignment: AlignmentDirectional.center,
-          padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 0.2,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
+      child: Container(
+        alignment: AlignmentDirectional.center,
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 0.2,
                         ),
-                        child: SizedBox(
-                          height: 45.0, // Đặt chiều cao của ô nhập văn bản
-                          child: TextField(
-                            controller: searchUser,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              contentPadding:
-                              const EdgeInsets.fromLTRB(15, 10, 0, 10),
-                            ),
-                          ),
-                        ),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SizedBox(
-                      height: 45.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          String search = searchUser.text;
-                          searchData(search);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7),
-                            side:
-                            const BorderSide(width: 2, color: Colors.blue),
-                          ),
-                        ),
-                        child: const Text(
-                          'Search',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    height: 650,
-                    color: Colors.white,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Center(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 580,
-                                  child: currentPage < pages.length
-                                      ? pages[currentPage]
-                                      : null,
-                                ),
-                                NumberPaginator(
-                                  numberPages: numberOfPage,
-                                  onPageChange: (index) {
-                                    setState(() {
-                                      currentPage = index;
-                                    });
-                                  },
-                                )
-                              ],
+                      child: SizedBox(
+                        height: 45.0, // Đặt chiều cao của ô nhập văn bản
+                        child: TextField(
+                          controller: searchUser,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                          )
-                        ],
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(15, 10, 0, 10),
+                          ),
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    height: 45.0,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        String search = searchUser.text;
+                        searchData(search);
+                        // ignore: use_build_context_synchronously
+                        FocusScope.of(context).unfocus();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          side: const BorderSide(width: 2, color: Colors.blue),
+                        ),
+                      ),
+                      child: const Text(
+                        'Search',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  height: 650,
+                  color: Colors.white,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 590,
+                                child: currentPage < pages.length
+                                    ? pages[currentPage]
+                                    : null,
+                              ),
+                              NumberPaginator(
+                                numberPages: numberOfPage,
+                                onPageChange: (index) {
+                                  setState(() {
+                                    currentPage = index;
+                                  });
+                                },
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
+      ),
     );
   }
 }
