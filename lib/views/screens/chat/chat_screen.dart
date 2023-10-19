@@ -5,7 +5,7 @@ import 'package:thuc_tap_flutter/services/chat/chat_service.dart';
 import 'package:thuc_tap_flutter/validate/item_validate.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_chat_bubble.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
-import 'package:thuc_tap_flutter/views/widgets/my_text_field_mess.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
 
 class ChatScreen extends StatefulWidget {
   final String receiveUserEmail;
@@ -80,26 +80,18 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildMessageInput() {
     return Container(
       margin: const EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Expanded(
-            child: MyTextFieldMessage(
-              controller: _messageCtrl,
-              hintText: "Enter message",
-              obscureText: false,
-            ),
+      child: Expanded(
+        child: MyTextFieldSend(
+          controller: _messageCtrl,
+          hintText: "Enter message",
+          onTap: sendMessage,
+          icon: const Icon(
+            Icons.send,
+            size: 35,
+            color: Colors.blue,
           ),
-
-          // send button
-          IconButton(
-            onPressed: sendMessage,
-            icon: const Icon(
-              Icons.send,
-              size: 35,
-              color: Colors.blue,
-            ),
-          ),
-        ],
+          messOrSearch: true,
+        ),
       ),
     );
   }

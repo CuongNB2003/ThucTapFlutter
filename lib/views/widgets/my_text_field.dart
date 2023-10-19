@@ -8,6 +8,7 @@ class MyTextField extends StatelessWidget {
   final void Function()? onTap;
   final String? Function(String?)? onValidate;
   final bool isRightIcon;
+  final TextInputType textInputType;
 
   const MyTextField({
     super.key,
@@ -18,6 +19,7 @@ class MyTextField extends StatelessWidget {
     this.onTap,
     required this.isRightIcon,
     required this.onValidate,
+    required this.textInputType,
   });
 
   @override
@@ -27,24 +29,26 @@ class MyTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
-          labelText: hintText,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
-            ),
+        labelText: hintText,
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
           ),
-          suffixIcon: isRightIcon
-              ? IconButton(
-                  icon: Icon(
-                    obscureText ? Icons.visibility_off : Icons.visibility,
-                  ),
-                  onPressed: onTap,
-                )
-              : null,
-          prefixIcon: icon),
+        ),
+        suffixIcon: isRightIcon
+            ? IconButton(
+                icon: Icon(
+                  obscureText ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: onTap,
+              )
+            : null,
+        prefixIcon: icon,
+      ),
       validator: onValidate,
+      keyboardType: textInputType,
     );
   }
 }

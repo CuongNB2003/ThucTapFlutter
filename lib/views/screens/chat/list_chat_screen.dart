@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/chat_screen.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_item_chat.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
 
 class ListChatScreen extends StatefulWidget {
   const ListChatScreen({super.key});
@@ -13,14 +15,33 @@ class ListChatScreen extends StatefulWidget {
 
 class _ListChatScreenState extends State<ListChatScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final _searchUser = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         alignment: AlignmentDirectional.center,
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-        child: _buildUserList(),
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            MyTextFieldSend(
+              controller: _searchUser,
+              hintText: 'Enter name to search',
+              icon: const Icon(
+                Icons.search,
+                size: 35,
+                color: Colors.blue,
+              ),
+              onTap: () {
+
+              },
+              messOrSearch: false,
+            ),
+            const SizedBox(height: 30),
+            Expanded(child: _buildUserList()),
+          ],
+        ),
       ),
     );
   }
@@ -59,7 +80,11 @@ class _ListChatScreenState extends State<ListChatScreen> {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
     if (_auth.currentUser!.email != data['email']) {
-      return GestureDetector(
+      return MyItemChat(
+        imageUrl:
+            'https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-anh-co-gai-cute-anime-8-min-4.jpg',
+        title: data['name'],
+        content: data['email'],
         onTap: () {
           Navigator.push(
               context,
@@ -71,22 +96,6 @@ class _ListChatScreenState extends State<ListChatScreen> {
                 ),
               ));
         },
-        child: Row(
-          children: [
-            const SizedBox(
-              height: 50,
-              width: 50,
-              child: Icon(Icons.perm_identity_outlined),
-            ),
-            Text(
-              data['name'],
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
       );
     } else {
       return Container();

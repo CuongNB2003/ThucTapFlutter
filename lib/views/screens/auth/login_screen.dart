@@ -105,6 +105,7 @@ class LoginScreenState extends State<LoginScreen> {
                       obscureText: false,
                       icon: const Icon(Icons.email_outlined),
                       onValidate: (value) => _authValidate.validateEmail(value),
+                      textInputType: TextInputType.emailAddress,
                     ),
                     const SizedBox(
                       height: 20,
@@ -118,6 +119,7 @@ class LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.lock_outline),
                       onValidate: (value) =>
                           _authValidate.validatePassword(value),
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 50,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:thuc_tap_flutter/model/nhan_vien.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/detail_nv_screen.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
 
 class ManageScreen extends StatefulWidget {
   const ManageScreen({super.key});
@@ -170,64 +171,16 @@ class ManageScreenState extends State<ManageScreen> {
               height: 10,
             ),
             Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.2,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: SizedBox(
-                        height: 45.0, // Đặt chiều cao của ô nhập văn bản
-                        child: TextField(
-                          controller: searchUser,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(15, 10, 0, 10),
-                          ),
-                        ),
-                      ),
-                    ),
+              child: MyTextFieldSend(
+                  controller: searchUser,
+                  hintText: 'Nhập tên nhân viên',
+                  onTap: () => searchData(searchUser.text),
+                  icon: const Icon(
+                    Icons.search,
+                    size: 35,
+                    color: Colors.blue,
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  SizedBox(
-                    height: 45.0,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        String search = searchUser.text;
-                        searchData(search);
-                        // ignore: use_build_context_synchronously
-                        FocusScope.of(context).unfocus();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7),
-                          side: const BorderSide(width: 2, color: Colors.blue),
-                        ),
-                      ),
-                      child: const Text(
-                        'Search',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  messOrSearch: false),
             ),
             Expanded(
               child: SingleChildScrollView(

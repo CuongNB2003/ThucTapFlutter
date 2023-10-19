@@ -84,6 +84,7 @@ class _AddScreenState extends State<AddScreen> {
                   icon: const Icon(Icons.perm_identity_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _nhanVienValidate.validateName(value),
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 20,
@@ -95,6 +96,7 @@ class _AddScreenState extends State<AddScreen> {
                   icon: const Icon(Icons.email_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _nhanVienValidate.validateEmail(value),
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 20,
@@ -106,6 +108,7 @@ class _AddScreenState extends State<AddScreen> {
                   icon: const Icon(Icons.phone_enabled_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _nhanVienValidate.validatePhone(value),
+                  textInputType: TextInputType.phone,
                 ),
                 const SizedBox(
                   height: 60,
