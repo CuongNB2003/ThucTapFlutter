@@ -6,7 +6,6 @@ import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button_ontline.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddScreen extends StatefulWidget {
@@ -82,7 +81,7 @@ class _AddScreenState extends State<AddScreen> {
                   controller: _nameCtrl,
                   hintText: "Nhập name",
                   obscureText: false,
-                  icon: Icon(Icons.perm_identity_outlined),
+                  icon: const Icon(Icons.perm_identity_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _nhanVienValidate.validateName(value),
                 ),
@@ -93,7 +92,7 @@ class _AddScreenState extends State<AddScreen> {
                   controller: _emailCtrl,
                   hintText: "Nhập email",
                   obscureText: false,
-                  icon: Icon(Icons.email_outlined),
+                  icon: const Icon(Icons.email_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _nhanVienValidate.validateEmail(value),
                 ),
@@ -104,7 +103,7 @@ class _AddScreenState extends State<AddScreen> {
                   controller: _phoneCtrl,
                   hintText: "Nhập phone",
                   obscureText: false,
-                  icon: Icon(Icons.phone_enabled_outlined),
+                  icon: const Icon(Icons.phone_enabled_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _nhanVienValidate.validatePhone(value),
                 ),
@@ -126,7 +125,7 @@ class _AddScreenState extends State<AddScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
               ],
             ),
           ),

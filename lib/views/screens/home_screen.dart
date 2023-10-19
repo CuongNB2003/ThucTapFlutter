@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
@@ -48,22 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Home"),
+        title: const Text("Home"),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddScreen(),
+                  builder: (context) => const AddScreen(),
                 ),
               );
             },
-            icon: Icon(Icons.person_add),
+            icon: const Icon(Icons.person_add),
           ),
           IconButton(
             onPressed: ShowDialog,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
