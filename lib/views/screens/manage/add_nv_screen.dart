@@ -116,7 +116,9 @@ class _AddScreenState extends State<AddScreen> {
                     MyButton(
                       onTap: showDialogAdd,
                       text: "Thêm",
+                      textEnabled: '',
                       sizeHeigh: 160,
+                      isLoading: false,
                     ),
                     MyButtonOutline(
                       onTap: onClickCancell,

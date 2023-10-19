@@ -18,6 +18,7 @@ class RegisterScreen extends StatefulWidget {
 class RegisterScreenState extends State<RegisterScreen> {
   bool _showPass = true;
   bool _showConfirnPass = true;
+  bool _isLoading = false;
   final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
@@ -39,14 +40,21 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   void handleCreateAccount() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signUpWithEmailAndPassword(
           _emailCtrl.text,
           _passCtrl.text,
+          _nameCtrl.text,
         );
         // ignore: use_build_context_synchronously
         FocusScope.of(context).unfocus();
+        setState(() {
+          _isLoading = false;
+        });
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -56,6 +64,9 @@ class RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         );
+        setState(() {
+          _isLoading = false;
+        });
       }
     } else {
       print('Validation failed');
@@ -148,7 +159,9 @@ class RegisterScreenState extends State<RegisterScreen> {
                     MyButton(
                       onTap: handleCreateAccount,
                       text: "SIGN UP",
+                      textEnabled: "Create Account...",
                       sizeHeigh: double.infinity,
+                      isLoading: _isLoading,
                     ),
                     const SizedBox(
                       height: 50,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/chat_screen.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 
 class ListChatScreen extends StatefulWidget {
   const ListChatScreen({super.key});
@@ -38,11 +39,10 @@ class _ListChatScreenState extends State<ListChatScreen> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: Text(
-              "Loading...",
-              style: TextStyle(color: Colors.blue, fontSize: 24),
-            ),
+          return const MyLoading(
+            withLoading: 50,
+            heightLoading: 50,
+            color: Colors.blue,
           );
         }
 
@@ -67,6 +67,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                 builder: (context) => ChatScreen(
                   receiveUserEmail: data['email'],
                   receiveUserID: data['uid'],
+                  receiveUserName: data['name'],
                 ),
               ));
         },
@@ -78,16 +79,15 @@ class _ListChatScreenState extends State<ListChatScreen> {
               child: Icon(Icons.perm_identity_outlined),
             ),
             Text(
-              data['email'],
+              data['name'],
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.w500),
             )
           ],
         ),
       );
-
     } else {
       return Container();
     }

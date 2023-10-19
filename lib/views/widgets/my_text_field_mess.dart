@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show BuildContext, InputDecoration, OutlineInputBorder, StatelessWidget, TextEditingController, TextField, TextInputType, TextStyle, Widget;
 
 class MyTextFieldMessage extends StatelessWidget {
@@ -16,12 +17,16 @@ class MyTextFieldMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       style: const TextStyle(
-        fontSize: 18,
+        fontSize: 16,
       ),
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
+          ),
+        ),
         hintText: hintText,
       ),
       maxLines: null,

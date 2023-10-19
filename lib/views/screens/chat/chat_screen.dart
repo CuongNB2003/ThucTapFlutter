@@ -1,19 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_flutter/model/message.dart';
 import 'package:thuc_tap_flutter/services/chat/chat_service.dart';
 import 'package:thuc_tap_flutter/validate/item_validate.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_chat_bubble.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field_mess.dart';
 
 class ChatScreen extends StatefulWidget {
   final String receiveUserEmail;
   final String receiveUserID;
+  final String receiveUserName;
 
   const ChatScreen({
     super.key,
     required this.receiveUserEmail,
     required this.receiveUserID,
+    required this.receiveUserName,
   });
 
   @override
@@ -43,7 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.receiveUserEmail),
+        title: Text(widget.receiveUserName),
         actions: [
           IconButton(
             onPressed: () {},
@@ -101,63 +104,69 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  // build message list
+// build message list
   Widget _buildMessageList() {
-    return StreamBuilder(
+    return StreamBuilder<List<Message>>(
       stream: _chatService.getMessage(
           widget.receiveUserID, _firebaseAuth.currentUser!.uid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
-            child: Text("Error${snapshot.error}",
-                style: const TextStyle(color: Colors.red, fontSize: 24)),
+          return const Center(
+            child: Text("Error",
+                style: TextStyle(color: Colors.red, fontSize: 24)),
           );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: Text("Loading...",
-                style: TextStyle(color: Colors.blue, fontSize: 24)),
+          return const MyLoading(
+            withLoading: 50,
+            heightLoading: 50,
+            color: Colors.white,
           );
         }
 
-        return ListView(
-          children: snapshot.data!.docs
-              .map((document) => _buildMessageItem(document))
-              .toList(),
-        );
+        return snapshot.hasData && snapshot.data!.isNotEmpty
+            ? ListView(
+                reverse: true,
+                children: snapshot.data!
+                    .map((message) => _buildMessageItem(message))
+                    .toList())
+            : Container();
       },
     );
   }
 
-  // build message item
-  Widget _buildMessageItem(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+// build message item
+  Widget _buildMessageItem(Message message) {
     return Center(
       child: Container(
         padding: const EdgeInsets.all(10),
         alignment: _validate.determineAlignment(
-          data['senderId'],
+          message.senderId,
           _firebaseAuth.currentUser!.uid,
         ),
         child: Column(
           crossAxisAlignment: _validate.determineCrossAxisAlignment(
-            data['senderId'],
+            message.senderId,
             _firebaseAuth.currentUser!.uid,
           ),
           children: [
-            Text(
-              _validate.determineName(
-                data['senderId'],
-                _firebaseAuth.currentUser!.uid,
-                data['senderEmail'],
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                _validate.determineName(
+                  message.senderId,
+                  _firebaseAuth.currentUser!.uid,
+                  message.senderName,
+                ),
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
             MyChatBubble(
-              message: data['message'],
+              message: message.message,
               color: _validate.determineColor(
-                data['senderId'],
+                message.senderId,
                 _firebaseAuth.currentUser!.uid,
               ),
             ),

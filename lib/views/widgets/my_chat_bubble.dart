@@ -11,14 +11,14 @@ class MyChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: color,
       ),
       child: Text(
         message,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 18),
       ),
     );
   }

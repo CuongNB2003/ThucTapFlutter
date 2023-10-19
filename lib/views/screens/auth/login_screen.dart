@@ -17,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   bool _showPassW = true;
+  bool _isLoading = false;
   final userNameCtrl = TextEditingController();
   final passWordCtrl = TextEditingController();
   final _authValidate = AuthValidate();
@@ -30,6 +31,9 @@ class LoginScreenState extends State<LoginScreen> {
 
   void onclickSignIn() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signInWithEmailAndPassword(
@@ -38,6 +42,9 @@ class LoginScreenState extends State<LoginScreen> {
         );
         // ignore: use_build_context_synchronously
         FocusScope.of(context).unfocus();
+        setState(() {
+          _isLoading = false;
+        });
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -47,6 +54,9 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
         );
+        setState(() {
+          _isLoading = false;
+        });
       }
     } else {
       print('Validation failed');
@@ -114,8 +124,10 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                     MyButton(
                       text: "SIGN IN",
+                      textEnabled: "Loading...",
                       onTap: onclickSignIn,
                       sizeHeigh: double.infinity,
+                      isLoading: _isLoading,
                     ),
                     const SizedBox(
                       height: 30,

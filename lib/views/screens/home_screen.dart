@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
@@ -5,6 +7,7 @@ import 'package:thuc_tap_flutter/views/screens/chat/list_chat_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/add_nv_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/manage_screen.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,13 +17,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? userName;
+
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     ListChatScreen(),
     ManageScreen(),
     Text('Cài đặt'),
   ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -43,12 +49,39 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void setName() async {
+    var docSnapshot = await firestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .get();
+    setState(() {
+      userName = docSnapshot['name'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setName();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Home"),
+        title: Row(
+          children: [
+            const Text('Welcome '),
+            userName == null
+                ? const MyLoading(
+                    withLoading: 15,
+                    heightLoading: 15,
+                    color: Colors.white,
+                  )
+                : Text('$userName'),
+          ],
+        ),
         actions: [
           IconButton(
             onPressed: () {

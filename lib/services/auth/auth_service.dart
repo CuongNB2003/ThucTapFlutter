@@ -29,7 +29,7 @@ class AuthService extends ChangeNotifier{
   }
 
   // tạo tài khoản mới
-  Future<UserCredential> signUpWithEmailAndPassword(String email, String pass) async {
+  Future<UserCredential> signUpWithEmailAndPassword(String email, String pass, String name) async {
     try {
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email,
@@ -40,6 +40,7 @@ class AuthService extends ChangeNotifier{
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
+        'name' : name,
       });
 
       return userCredential;

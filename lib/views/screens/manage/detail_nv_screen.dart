@@ -151,7 +151,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     MyButton(
                       onTap: showDialogEdit,
                       text: "Sửa",
+                      textEnabled: '',
                       sizeHeigh: 160,
+                      isLoading: false,
                     ),
                     MyButtonOutline(
                       onTap: showDialogDelete,
