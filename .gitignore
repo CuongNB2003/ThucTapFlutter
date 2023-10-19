@@ -1,0 +1,29 @@
+# Dart related
+.dart_tool/
+.packages
+
+# Flutter related
+build/
+flutter_export_environment.sh
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/local.properties
+
+# iOS related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/.DS_Store
+
+# IntelliJ related
+.idea/
+
+# VSCode related
+.vscode/
+
+# pubspec.lock - Uncomment this line if your project team has a unified Flutter version.
+# pubspec.lock
