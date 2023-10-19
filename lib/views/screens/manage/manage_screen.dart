@@ -239,7 +239,7 @@ class ManageScreenState extends State<ManageScreen> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 590,
+                                  height: 580,
                                   child: currentPage < pages.length
                                       ? pages[currentPage]
                                       : null,
