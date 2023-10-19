@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show BuildContext, InputDecoration, OutlineInputBorder, StatelessWidget, TextEditingController, TextField, TextInputType, TextStyle, Widget;
 
 class MyTextFieldMessage extends StatelessWidget {
   final TextEditingController controller;
@@ -15,13 +15,13 @@ class MyTextFieldMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
       ),
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         hintText: hintText,
       ),
       maxLines: null,

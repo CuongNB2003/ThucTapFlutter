@@ -33,6 +33,8 @@ class _ChatScreenState extends State<ChatScreen> {
         _messageCtrl.text,
       );
       // sau khi gửi thì xóa text
+      // ignore: use_build_context_synchronously
+      FocusScope.of(context).unfocus();
       _messageCtrl.clear();
     }
   }
