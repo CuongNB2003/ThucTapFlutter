@@ -38,12 +38,15 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   void handleCreateAccount() async {
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signUpWithEmailAndPassword(
-            _emailCtrl.text, _passCtrl.text);
-        print("Tạo tài khoản thành công");
+          _emailCtrl.text,
+          _passCtrl.text,
+        );
+        // ignore: use_build_context_synchronously
+        FocusScope.of(context).unfocus();
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -54,7 +57,7 @@ class RegisterScreenState extends State<RegisterScreen> {
           ),
         );
       }
-    }else {
+    } else {
       print('Validation failed');
     }
   }
@@ -123,8 +126,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                       obscureText: _showPass,
                       icon: const Icon(Icons.lock_outline),
                       isRightIcon: true,
-                      onValidate: (value) => _authValidate.validatePassword(value),
-                    ),const SizedBox(
+                      onValidate: (value) =>
+                          _authValidate.validatePassword(value),
+                    ),
+                    const SizedBox(
                       height: 20,
                     ),
                     MyTextField(
@@ -134,7 +139,8 @@ class RegisterScreenState extends State<RegisterScreen> {
                       obscureText: _showConfirnPass,
                       icon: const Icon(Icons.lock_outline),
                       isRightIcon: true,
-                      onValidate: (value) => _authValidate.validateConfirmPassword(value, _passCtrl.text),
+                      onValidate: (value) => _authValidate
+                          .validateConfirmPassword(value, _passCtrl.text),
                     ),
                     const SizedBox(
                       height: 50,

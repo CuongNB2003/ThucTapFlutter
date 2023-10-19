@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show Alignment, Color, Colors, CrossAxisAlignment;
 
 class ItemValidate {
   Alignment determineAlignment(String senderId, String currentUserId){

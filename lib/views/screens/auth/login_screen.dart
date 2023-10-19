@@ -33,7 +33,11 @@ class LoginScreenState extends State<LoginScreen> {
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signInWithEmailAndPassword(
-            userNameCtrl.text, passWordCtrl.text);
+          userNameCtrl.text,
+          passWordCtrl.text,
+        );
+        // ignore: use_build_context_synchronously
+        FocusScope.of(context).unfocus();
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
