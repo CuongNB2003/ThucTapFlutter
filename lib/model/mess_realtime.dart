@@ -1,14 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-class Message {
+class MessageRealtime {
   final String senderId;
   final String senderEmail;
   final String receiverId;
   final String senderName;
   final String message;
-  final Timestamp timestamp;
+  final int timestamp;
 
-  Message({
+  MessageRealtime({
     required this.senderName,
     required this.senderId,
     required this.senderEmail,
@@ -28,8 +26,8 @@ class Message {
     };
   }
 
-  factory Message.fromMap(Map<String, dynamic> map) {
-    return Message(
+  factory MessageRealtime.fromMap(Map<String, dynamic> map) {
+    return MessageRealtime(
       senderId: map['senderId'],
       senderEmail: map['senderEmail'],
       receiverId: map['receiverId'],

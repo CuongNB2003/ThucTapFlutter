@@ -80,23 +80,27 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildMessageInput() {
     return Container(
       margin: const EdgeInsets.all(10),
-      child: Expanded(
-        child: MyTextFieldSend(
-          controller: _messageCtrl,
-          hintText: "Enter message",
-          onTap: sendMessage,
-          icon: const Icon(
-            Icons.send,
-            size: 35,
-            color: Colors.blue,
+      child: Row(
+        children: [
+          Expanded(
+            child: MyTextFieldSend(
+              controller: _messageCtrl,
+              hintText: "Enter message",
+              onTap: sendMessage,
+              icon: const Icon(
+                Icons.send,
+                size: 35,
+                color: Colors.blue,
+              ),
+              messOrSearch: true,
+            ),
           ),
-          messOrSearch: true,
-        ),
+        ],
       ),
     );
   }
 
-// build message list
+  // build message list
   Widget _buildMessageList() {
     return StreamBuilder<List<Message>>(
       stream: _chatService.getMessage(
@@ -119,16 +123,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
         return snapshot.hasData && snapshot.data!.isNotEmpty
             ? ListView(
-                reverse: true,
-                children: snapshot.data!
-                    .map((message) => _buildMessageItem(message))
-                    .toList())
+            reverse: true,
+            children: snapshot.data!
+                .map((message) => _buildMessageItem(message))
+                .toList())
             : Container();
       },
     );
   }
 
-// build message item
+  // build message item
   Widget _buildMessageItem(Message message) {
     return Center(
       child: Container(
@@ -152,7 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   message.senderName,
                 ),
                 style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
             MyChatBubble(

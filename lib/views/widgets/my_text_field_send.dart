@@ -18,40 +18,28 @@ class MyTextFieldSend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      style: const TextStyle(fontSize: 16),
-      controller: controller,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-          ),
-        ),
-        suffixIcon: IconButton(
-          icon: icon,
-          onPressed: onTap,
-        ),
-        hintText: hintText,
-        contentPadding:
-        const EdgeInsets.fromLTRB(15, 10, 0, 10),
-      ),
-      maxLines: messOrSearch ? null : 1,
-      keyboardType: messOrSearch ? TextInputType.multiline : TextInputType.text,
-    );
-
-    SizedBox(
-      height: 45.0, // Đặt chiều cao của ô nhập văn bản
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 100.0), // Đặt chiều cao tối đa là 100.0
       child: TextField(
+        style: const TextStyle(fontSize: 16),
         controller: controller,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
           ),
+          suffixIcon: IconButton(
+            icon: icon,
+            onPressed: onTap,
+          ),
+          hintText: hintText,
           contentPadding:
-          const EdgeInsets.fromLTRB(15, 10, 0, 10),
+          const EdgeInsets.fromLTRB(20, 10, 0, 10),
         ),
+        maxLines: messOrSearch ? null : 1,
+        keyboardType: messOrSearch ? TextInputType.multiline : TextInputType.text,
       ),
     );
-
   }
 }

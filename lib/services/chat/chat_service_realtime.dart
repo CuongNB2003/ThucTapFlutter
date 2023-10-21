@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:thuc_tap_flutter/model/message.dart';
+import 'package:thuc_tap_flutter/model/mess_realtime.dart';
 
 class ChatService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   Future<void> sendMessage(String receiverId, String message) async {
     final docSnapshot = await _firestore
@@ -16,10 +18,10 @@ class ChatService extends ChangeNotifier {
     final String currenUserId = _firebaseAuth.currentUser!.uid;
     final String currenUserEmail = _firebaseAuth.currentUser!.email.toString();
     final String currenUserName = docSnapshot['name'];
-    final Timestamp timestamp = Timestamp.now();
+    final int timestamp = DateTime.now().microsecondsSinceEpoch;
 
     // tạo tin nhắn mới
-    Message newMessage = Message(
+    var newMessage = MessageRealtime(
       senderId: currenUserId,
       senderEmail: currenUserEmail,
       receiverId: receiverId,
@@ -32,25 +34,42 @@ class ChatService extends ChangeNotifier {
     ids.sort(); // sắp xếp ids
     String chatRoomId = ids.join('_'); //kết hợp 2 id thành 1
     // thêm tin nhắn mới vào cơ sở dữ liệu
-    await _firestore
-        .collection('chat_rooms')
-        .doc(chatRoomId)
-        .collection('message')
-        .add(newMessage.toMap());
+    await _database
+        .ref()
+        .child('chat_rooms')
+        .child(chatRoomId)
+        .child('message')
+        .push()
+        .set(newMessage.toMap());
   }
 
-  Stream<List<Message>> getMessage(String userId, String otherUserId) {
+  Stream<List<MessageRealtime>> getMessage(String userId, String otherUserId) {
     List<String> ids = [userId, otherUserId];
     ids.sort(); // sắp xếp ids
     String chatRoomId = ids.join('_');
-    return _firestore
-        .collection('chat_rooms')
-        .doc(chatRoomId)
-        .collection('message')
-        .orderBy('timestamp', descending: true)
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) => Message.fromMap(doc.data())).toList();
+    return _database
+        .ref()
+        .child('chat_rooms')
+        .child(chatRoomId)
+        .child('message')
+        .orderByChild('timestamp')
+        .onValue
+        .map((event) {
+      if (event.snapshot.value is Map) {
+        final data = Map<String, dynamic>.from(event.snapshot.value as Map);
+        final messages = data.values
+            .map((v) => MessageRealtime.fromMap(Map<String, dynamic>.from(v)))
+            .toList();
+        messages.sort(
+              (a, b) => b.timestamp.compareTo(a.timestamp),
+        ); // Sắp xếp theo thứ tự giảm dần
+        return messages;
+      } else {
+        return [];
+      }
     });
   }
+
+
+
 }
