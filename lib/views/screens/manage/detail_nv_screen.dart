@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/model/nhan_vien.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_gate.dart';
 import 'package:thuc_tap_flutter/services/nhanvien/nhanvien_service.dart';
-import 'package:thuc_tap_flutter/validate/nhan_vien_validate.dart';
+import 'package:thuc_tap_flutter/validate/my_validate.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button_ontline.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
@@ -21,7 +21,7 @@ class _DetailScreenState extends State<DetailScreen> {
   final TextEditingController _phoneECtrl = TextEditingController();
   final TextEditingController _idECtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final _nhanVienValidate = NhanVienValidate();
+  final _myValidate = MyValidate();
   late String name = widget.data.name.toString();
 
   void showDialogEdit() {
@@ -119,7 +119,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   obscureText: false,
                   icon: const Icon(Icons.perm_identity_outlined),
                   isRightIcon: false,
-                  onValidate: (value) => _nhanVienValidate.validateName(value),
+                  onValidate: (value) => _myValidate.validateName(value),
                   textInputType: TextInputType.text,
                 ),
                 const SizedBox(
@@ -131,7 +131,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   obscureText: false,
                   icon: const Icon(Icons.email_outlined),
                   isRightIcon: false,
-                  onValidate: (value) => _nhanVienValidate.validateEmail(value),
+                  onValidate: (value) => _myValidate.validateEmail(value),
                   textInputType: TextInputType.text,
                 ),
                 const SizedBox(
@@ -143,7 +143,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   obscureText: false,
                   icon: const Icon(Icons.phone_enabled_outlined),
                   isRightIcon: false,
-                  onValidate: (value) => _nhanVienValidate.validatePhone(value),
+                  onValidate: (value) => _myValidate.validatePhone(value),
                   textInputType: TextInputType.phone,
                 ),
                 const SizedBox(

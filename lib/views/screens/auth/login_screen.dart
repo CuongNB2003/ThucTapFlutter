@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
-import 'package:thuc_tap_flutter/validate/auth_validate.dart';
+import 'package:thuc_tap_flutter/validate/my_validate.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
 
@@ -20,7 +20,7 @@ class LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   final userNameCtrl = TextEditingController();
   final passWordCtrl = TextEditingController();
-  final _authValidate = AuthValidate();
+  final _myValidate = MyValidate();
   final _formKey = GlobalKey<FormState>();
 
   void onclickShowPass() {
@@ -104,7 +104,7 @@ class LoginScreenState extends State<LoginScreen> {
                       hintText: "Email",
                       obscureText: false,
                       icon: const Icon(Icons.email_outlined),
-                      onValidate: (value) => _authValidate.validateEmail(value),
+                      onValidate: (value) => _myValidate.validateEmail(value),
                       textInputType: TextInputType.emailAddress,
                     ),
                     const SizedBox(
@@ -117,8 +117,7 @@ class LoginScreenState extends State<LoginScreen> {
                       hintText: "PassWord",
                       obscureText: _showPassW,
                       icon: const Icon(Icons.lock_outline),
-                      onValidate: (value) =>
-                          _authValidate.validatePassword(value),
+                      onValidate: (value) => _myValidate.validatePassword(value),
                       textInputType: TextInputType.text,
                     ),
                     const SizedBox(

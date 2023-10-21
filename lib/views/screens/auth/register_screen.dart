@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
-import 'package:thuc_tap_flutter/validate/auth_validate.dart';
+import 'package:thuc_tap_flutter/validate/my_validate.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
 
@@ -23,7 +23,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
   final _confirmPassCtrl = TextEditingController();
-  final _authValidate = AuthValidate();
+  final _myValidate = MyValidate();
   final _formKey = GlobalKey<FormState>();
 
   void onclickShowPass() {
@@ -114,7 +114,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       hintText: "Name",
                       obscureText: false,
                       icon: const Icon(Icons.perm_identity_outlined),
-                      onValidate: (value) => _authValidate.validateName(value),
+                      onValidate: (value) => _myValidate.validateName(value),
                       textInputType: TextInputType.text,
                     ),
                     const SizedBox(
@@ -126,7 +126,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       obscureText: false,
                       icon: const Icon(Icons.email_outlined),
                       isRightIcon: false,
-                      onValidate: (value) => _authValidate.validateEmail(value),
+                      onValidate: (value) => _myValidate.validateEmail(value),
                       textInputType: TextInputType.text,
                     ),
                     const SizedBox(
@@ -140,7 +140,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       icon: const Icon(Icons.lock_outline),
                       isRightIcon: true,
                       onValidate: (value) =>
-                          _authValidate.validatePassword(value),
+                          _myValidate.validatePassword(value),
                       textInputType: TextInputType.text,
                     ),
                     const SizedBox(
@@ -153,8 +153,11 @@ class RegisterScreenState extends State<RegisterScreen> {
                       obscureText: _showConfirnPass,
                       icon: const Icon(Icons.lock_outline),
                       isRightIcon: true,
-                      onValidate: (value) => _authValidate
-                          .validateConfirmPassword(value, _passCtrl.text),
+                      onValidate: (value) =>
+                          _myValidate.validateConfirmPassword(
+                        value,
+                        _passCtrl.text,
+                      ),
                       textInputType: TextInputType.text,
                     ),
                     const SizedBox(
