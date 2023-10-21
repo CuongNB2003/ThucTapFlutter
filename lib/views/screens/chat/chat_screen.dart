@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/model/message.dart';
@@ -27,7 +28,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final _messageCtrl = TextEditingController();
   final ChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final  _validate = MyWidgetValidate();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _validate = MyWidgetValidate();
 
   void sendMessage() async {
     if (_messageCtrl.text.isNotEmpty) {
@@ -46,7 +48,38 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.receiveUserName),
+        title: StreamBuilder(
+          stream: _firestore
+              .collection('users')
+              .doc(widget.receiveUserID)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    snapshot.data?['name'],
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    snapshot.data?['status'] ? 'Online' : 'Offline',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -123,10 +156,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
         return snapshot.hasData && snapshot.data!.isNotEmpty
             ? ListView(
-            reverse: true,
-            children: snapshot.data!
-                .map((message) => _buildMessageItem(message))
-                .toList())
+                reverse: true,
+                children: snapshot.data!
+                    .map((message) => _buildMessageItem(message))
+                    .toList())
             : Container();
       },
     );
@@ -156,7 +189,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   message.senderName,
                 ),
                 style:
-                const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
             MyChatBubble(

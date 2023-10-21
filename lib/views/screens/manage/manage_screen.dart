@@ -38,9 +38,11 @@ class ManageScreenState extends State<ManageScreen> {
       // ['data'];
       final List<NhanVien> userList =
           jsonData.map((user) => NhanVien.fromJson(user)).toList();
-      setState(() {
-        _data = userList;
-      });
+      if(mounted){
+        setState(() {
+          _data = userList;
+        });
+      }
     } else {
       throw Exception('Failed to load data from API');
     }
@@ -56,9 +58,11 @@ class ManageScreenState extends State<ManageScreen> {
       // ['data'];
       List<NhanVien> searchResult =
           jsonData.map((user) => NhanVien.fromJson(user)).toList();
-      setState(() {
-        _data = searchResult;
-      });
+      if(mounted){
+        setState(() {
+          _data = searchResult;
+        });
+      }
     } else {
       throw Exception('Failed to load data from API');
     }

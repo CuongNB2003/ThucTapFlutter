@@ -16,9 +16,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? userName;
 
   int _selectedIndex = 0;
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void ShowDialog() {
+  void showDialogLogout() {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -50,19 +50,47 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void setName() async {
-    var docSnapshot = await firestore
+    var docSnapshot = await _firestore
         .collection('users')
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(_firebaseAuth.currentUser!.uid)
         .get();
-    setState(() {
-      userName = docSnapshot['name'];
-    });
+    if (docSnapshot.data()!.containsKey('name')) {
+      setState(() {
+        userName = docSnapshot['name'];
+      });
+    } else {
+      // Handle the error or set a default value
+      userName = "";
+    }
   }
+
+  void setStatus(bool status) async {
+    User? currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
+      await _firestore.collection('users').doc(currentUser.uid).update({
+        "status": status,
+      });
+    } else {
+      print("No current user");
+    }
+  }
+
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     setName();
+    setStatus(true);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.resumed){
+      setStatus(true);
+    }else {
+      setStatus(false);
+    }
   }
 
   @override
@@ -95,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.person_add),
           ),
           IconButton(
-            onPressed: ShowDialog,
+            onPressed: showDialogLogout,
             icon: const Icon(Icons.logout),
           ),
         ],

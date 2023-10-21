@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_gate.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
 import 'package:thuc_tap_flutter/services/firebase_options.dart';
+import 'package:thuc_tap_flutter/services/notification/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotificationService().initNotifications();
   runApp(
     ChangeNotifierProvider(
       create: (context) => AuthService(),

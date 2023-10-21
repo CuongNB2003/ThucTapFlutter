@@ -15,7 +15,16 @@ class ListChatScreen extends StatefulWidget {
 
 class _ListChatScreenState extends State<ListChatScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _searchUser = TextEditingController();
+  Stream<QuerySnapshot>? _userStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _userStream = _firestore.collection('users').snapshots();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,7 +43,19 @@ class _ListChatScreenState extends State<ListChatScreen> {
                 color: Colors.blue,
               ),
               onTap: () {
-
+                if (_searchUser.text.isNotEmpty) {
+                  setState(() {
+                    _userStream = _firestore
+                        .collection('users')
+                        .where('name', isGreaterThanOrEqualTo: _searchUser.text)
+                        .where('name', isLessThan: _searchUser.text + 'z')
+                        .snapshots();
+                  });
+                } else {
+                  setState(() {
+                    _userStream = _firestore.collection('users').snapshots();
+                  });
+                }
               },
               messOrSearch: false,
             ),
@@ -48,7 +69,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
 
   Widget _buildUserList() {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      stream: _userStream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Center(

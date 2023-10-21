@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:thuc_tap_flutter/model/message.dart';
 
 class ChatService extends ChangeNotifier {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
 
   Future<void> sendMessage(String receiverId, String message) async {
     final docSnapshot = await _firestore

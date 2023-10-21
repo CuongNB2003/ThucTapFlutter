@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 
 class AuthService extends ChangeNotifier{
   // instanse of auth
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
   // su ly dang nhap
   Future<UserCredential> signInWithEmailAndPassword(
       String email, String pass) async {
@@ -14,10 +14,13 @@ class AuthService extends ChangeNotifier{
         email: email,
         password: pass,
       );
+
       // lưu user vào db
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
+        'status' : true,
+
       }, SetOptions(merge: true));
 
       return userCredential;
@@ -41,6 +44,7 @@ class AuthService extends ChangeNotifier{
         'uid' : userCredential.user!.uid,
         'email' : email,
         'name' : name,
+        'status' : true,
       });
 
       return userCredential;
@@ -51,6 +55,9 @@ class AuthService extends ChangeNotifier{
 
   // sử lý đăng xuất
   Future<void> signOut() async {
+    await _firestore.collection('users').doc(_firebaseAuth.currentUser!.uid).update({
+      "status": false,
+    });
     return await FirebaseAuth.instance.signOut();
   }
 }
