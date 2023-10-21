@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _messageCtrl = TextEditingController();
   final ChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final ItemValidate _validate = ItemValidate();
+  final  _validate = MyWidgetValidate();
 
   void sendMessage() async {
     if (_messageCtrl.text.isNotEmpty) {
@@ -36,9 +36,9 @@ class _ChatScreenState extends State<ChatScreen> {
         _messageCtrl.text,
       );
       // sau khi gửi thì xóa text
+      _messageCtrl.clear();
       // ignore: use_build_context_synchronously
       FocusScope.of(context).unfocus();
-      _messageCtrl.clear();
     }
   }
 
