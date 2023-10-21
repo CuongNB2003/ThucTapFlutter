@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show Alignment, Color, Colors, CrossAxisAlignment;
 
-class ItemValidate {
+class MyWidgetValidate {
   Alignment determineAlignment(String senderId, String currentUserId){
     Alignment alignment = (senderId == currentUserId)
         ? Alignment.centerRight
