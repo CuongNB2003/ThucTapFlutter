@@ -108,6 +108,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   icon: const Icon(Icons.insert_drive_file_outlined),
                   isRightIcon: false,
                   onValidate: null,
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 20,
@@ -119,6 +120,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   icon: const Icon(Icons.perm_identity_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validateName(value),
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 20,
@@ -130,6 +132,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   icon: const Icon(Icons.email_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validateEmail(value),
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(
                   height: 20,
@@ -141,6 +144,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   icon: const Icon(Icons.phone_enabled_outlined),
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validatePhone(value),
+                  textInputType: TextInputType.phone,
                 ),
                 const SizedBox(
                   height: 60,

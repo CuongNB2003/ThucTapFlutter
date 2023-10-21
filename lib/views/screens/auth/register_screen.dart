@@ -115,6 +115,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       obscureText: false,
                       icon: const Icon(Icons.perm_identity_outlined),
                       onValidate: (value) => _myValidate.validateName(value),
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 20,
@@ -126,6 +127,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       icon: const Icon(Icons.email_outlined),
                       isRightIcon: false,
                       onValidate: (value) => _myValidate.validateEmail(value),
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 20,
@@ -139,6 +141,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       isRightIcon: true,
                       onValidate: (value) =>
                           _myValidate.validatePassword(value),
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 20,
@@ -155,6 +158,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                         value,
                         _passCtrl.text,
                       ),
+                      textInputType: TextInputType.text,
                     ),
                     const SizedBox(
                       height: 50,
