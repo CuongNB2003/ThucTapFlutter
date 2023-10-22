@@ -5,6 +5,7 @@ class MyItemChat extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String content;
+  final Color color;
 
   const MyItemChat({
     super.key,
@@ -12,6 +13,7 @@ class MyItemChat extends StatelessWidget {
     required this.title,
     required this.content,
     required this.onTap,
+    required this.color,
   });
 
   @override
@@ -40,10 +42,10 @@ class MyItemChat extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold, color: color),
                     ),
-                    Text(content),
+                    Text(content, style: TextStyle(color: color),),
                   ],
                 ),
               ],

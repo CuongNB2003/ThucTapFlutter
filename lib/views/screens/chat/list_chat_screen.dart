@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_flutter/validate/item_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/chat_screen.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_item_chat.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
@@ -40,7 +42,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
               icon: const Icon(
                 Icons.search,
                 size: 35,
-                color: Colors.blue,
+                color: CustomColors.themeColor,
               ),
               onTap: () {
                 if (_searchUser.text.isNotEmpty) {
@@ -121,6 +123,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                 builder: (context) => ChatScreen(receiveUserID: data['uid']),
               ));
         },
+        color: CustomColors.themeColor,
       );
     } else {
       return Container();

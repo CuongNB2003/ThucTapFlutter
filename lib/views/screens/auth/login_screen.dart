@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
 import 'package:thuc_tap_flutter/validate/my_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
 
@@ -101,7 +102,7 @@ class LoginScreenState extends State<LoginScreen> {
                     const Text(
                       "Sign In to Continue!",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: CustomColors.themeColor,
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
                       ),
@@ -117,6 +118,7 @@ class LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.email_outlined),
                       onValidate: (value) => _myValidate.validateEmail(value),
                       textInputType: TextInputType.emailAddress,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 20,
@@ -130,6 +132,7 @@ class LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.lock_outline),
                       onValidate: (value) => _myValidate.validatePassword(value),
                       textInputType: TextInputType.text,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 50,
@@ -162,7 +165,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: CustomColors.themeColor),
                               ),
                             ),
                           ],

@@ -9,6 +9,7 @@ class MyTextField extends StatelessWidget {
   final String? Function(String?)? onValidate;
   final bool isRightIcon;
   final TextInputType textInputType;
+  final bool enabled;
 
   const MyTextField({
     super.key,
@@ -20,11 +21,13 @@ class MyTextField extends StatelessWidget {
     required this.isRightIcon,
     required this.onValidate,
     required this.textInputType,
+    required this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: enabled ? true : false,
       style: const TextStyle(fontSize: 16, color: Colors.black),
       controller: controller,
       obscureText: obscureText,

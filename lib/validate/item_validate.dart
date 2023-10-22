@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show Alignment, Color, Colors, CrossAxisAlignment;
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 
 class MyWidgetValidate {
   Alignment determineAlignment(String senderId, String currentUserId){
@@ -17,8 +18,15 @@ class MyWidgetValidate {
 
   Color determineColor(String senderId, String currentUserId){
     Color color = (senderId == currentUserId)
-        ? Colors.blue
-        : Colors.grey.shade200;
+        ? CustomColors.themeColor
+        : CustomColors.colorBubbleLeff;
+    return color;
+  }
+
+  Color determineColorText(String senderId, String currentUserId){
+    Color color = (senderId == currentUserId)
+        ? CustomColors.white
+        : CustomColors.back;
     return color;
   }
 

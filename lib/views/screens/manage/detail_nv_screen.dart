@@ -3,6 +3,7 @@ import 'package:thuc_tap_flutter/model/nhan_vien.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_gate.dart';
 import 'package:thuc_tap_flutter/services/nhanvien/nhanvien_service.dart';
 import 'package:thuc_tap_flutter/validate/my_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button_ontline.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
@@ -97,7 +98,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: CustomColors.themeColor,
                   ),
                 ),
                 const SizedBox(
@@ -111,6 +112,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   isRightIcon: false,
                   onValidate: null,
                   textInputType: TextInputType.text,
+                  enabled: true,
                 ),
                 const SizedBox(
                   height: 20,
@@ -123,6 +125,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validateName(value),
                   textInputType: TextInputType.text,
+                  enabled: false,
                 ),
                 const SizedBox(
                   height: 20,
@@ -135,6 +138,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validateEmail(value),
                   textInputType: TextInputType.text,
+                  enabled: false,
                 ),
                 const SizedBox(
                   height: 20,
@@ -147,6 +151,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validatePhone(value),
                   textInputType: TextInputType.phone,
+                  enabled: false,
                 ),
                 const SizedBox(
                   height: 60,

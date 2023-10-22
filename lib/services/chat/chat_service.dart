@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thuc_tap_flutter/model/message.dart';
+import 'package:thuc_tap_flutter/services/notification/notification_services.dart';
 
 class ChatService extends ChangeNotifier {
   final _firebaseAuth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+  final notificationService = NotificationsService();
 
   Future<void> sendMessage(String receiverId, String message) async {
     final docSnapshot = await _firestore
@@ -13,7 +15,7 @@ class ChatService extends ChangeNotifier {
         .doc(_firebaseAuth.currentUser!.uid)
         .get();
     // lấy thông tin người dùng hiện tại
-    final String currenUserId = _firebaseAuth.currentUser!.uid;
+    final currenUserId = _firebaseAuth.currentUser!.uid;
     final String currenUserEmail = _firebaseAuth.currentUser!.email.toString();
     final String currenUserName = docSnapshot['name'];
     final Timestamp timestamp = Timestamp.now();
@@ -37,6 +39,10 @@ class ChatService extends ChangeNotifier {
         .doc(chatRoomId)
         .collection('message')
         .add(newMessage.toMap());
+    // lấy token người nhận bằng id sau đó gửi thong báo đến người nhận
+    print('id người nhận ne: $receiverId');
+    await notificationService.getReceiverToken(receiverId);
+    await notificationService.sendNotification(title: currenUserName, senderId: receiverId, content: message);
   }
 
   Stream<List<Message>> getMessage(String userId, String otherUserId) {

@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/model/message.dart';
 import 'package:thuc_tap_flutter/services/chat/chat_service.dart';
+import 'package:thuc_tap_flutter/services/notification/notification_services.dart';
 import 'package:thuc_tap_flutter/validate/item_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_chat_bubble.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
@@ -26,6 +28,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _validate = MyWidgetValidate();
+  // khởi tạo thông báo
+  final notificationsService = NotificationsService();
 
   void sendMessage() async {
     if (_messageCtrl.text.isNotEmpty) {
@@ -38,6 +42,12 @@ class _ChatScreenState extends State<ChatScreen> {
       // ignore: use_build_context_synchronously
       FocusScope.of(context).unfocus();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    notificationsService.firebaseNotification(context);
   }
 
   @override
@@ -119,7 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: const Icon(
                 Icons.send,
                 size: 35,
-                color: Colors.blue,
+                color: CustomColors.themeColor,
               ),
               messOrSearch: true,
             ),
@@ -146,7 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
           return const MyLoading(
             withLoading: 50,
             heightLoading: 50,
-            color: Colors.white,
+            color: CustomColors.themeColor,
           );
         }
 
@@ -184,13 +194,19 @@ class _ChatScreenState extends State<ChatScreen> {
                   _firebaseAuth.currentUser!.uid,
                   message.senderName,
                 ),
-                style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColors.themeColor),
               ),
             ),
             MyChatBubble(
               message: message.message,
               color: _validate.determineColor(
+                message.senderId,
+                _firebaseAuth.currentUser!.uid,
+              ),
+              colorText: _validate.determineColorText(
                 message.senderId,
                 _firebaseAuth.currentUser!.uid,
               ),
