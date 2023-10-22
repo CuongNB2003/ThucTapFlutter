@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:thuc_tap_flutter/services/notification/notification_services.dart';
 
 class AuthService extends ChangeNotifier{
   // instanse of auth
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+  final notificationService = NotificationsService();
   // su ly dang nhap
   Future<UserCredential> signInWithEmailAndPassword(
       String email, String pass) async {
@@ -14,15 +16,15 @@ class AuthService extends ChangeNotifier{
         email: email,
         password: pass,
       );
-      // lưu user vào db
+
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
+        'status' : true,
       }, SetOptions(merge: true));
-
+      await notificationService.requestPermission();
+      await notificationService.getToken();
       return userCredential;
-
-
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
@@ -35,14 +37,15 @@ class AuthService extends ChangeNotifier{
           email: email,
           password: pass,
       );
-
       // lưu user vào db
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
+        'status' : true,
         'name' : name,
       });
-
+      await notificationService.requestPermission();
+      await notificationService.getToken();
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
@@ -51,6 +54,9 @@ class AuthService extends ChangeNotifier{
 
   // sử lý đăng xuất
   Future<void> signOut() async {
+    await _firestore.collection('users').doc(_firebaseAuth.currentUser!.uid).update({
+      "status": false,
+    });
     return await FirebaseAuth.instance.signOut();
   }
 }

@@ -3,6 +3,7 @@ import 'package:thuc_tap_flutter/model/nhan_vien.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_gate.dart';
 import 'package:thuc_tap_flutter/services/nhanvien/nhanvien_service.dart';
 import 'package:thuc_tap_flutter/validate/my_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button_ontline.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
@@ -71,7 +72,7 @@ class _AddScreenState extends State<AddScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+                    color: CustomColors.themeColor,
                   ),
                 ),
                 const SizedBox(
@@ -85,6 +86,7 @@ class _AddScreenState extends State<AddScreen> {
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validateName(value),
                   textInputType: TextInputType.text,
+                  enabled: false,
                 ),
                 const SizedBox(
                   height: 20,
@@ -97,6 +99,7 @@ class _AddScreenState extends State<AddScreen> {
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validateEmail(value),
                   textInputType: TextInputType.text,
+                  enabled: false,
                 ),
                 const SizedBox(
                   height: 20,
@@ -109,6 +112,7 @@ class _AddScreenState extends State<AddScreen> {
                   isRightIcon: false,
                   onValidate: (value) => _myValidate.validatePhone(value),
                   textInputType: TextInputType.phone,
+                  enabled: false,
                 ),
                 const SizedBox(
                   height: 60,

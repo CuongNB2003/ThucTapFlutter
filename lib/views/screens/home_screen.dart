@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/list_chat_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/add_nv_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/manage_screen.dart';
@@ -16,9 +18,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? userName;
 
   int _selectedIndex = 0;
@@ -28,12 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
     Text('Cài đặt'),
   ];
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if(mounted) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
-  void ShowDialog() {
+  void showDialogLogout() {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -50,19 +54,49 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void setName() async {
-    var docSnapshot = await firestore
+    var docSnapshot = await _firestore
         .collection('users')
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(_firebaseAuth.currentUser!.uid)
         .get();
-    setState(() {
-      userName = docSnapshot['name'];
-    });
+    if (docSnapshot.data()!.containsKey('name')) {
+      if(mounted) {
+        userName = docSnapshot['name'];
+      }
+    } else {
+      if(mounted) {
+        userName = "";
+      }
+    }
+  }
+
+  void setStatus(bool status) async {
+    User? currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
+      await _firestore.collection('users').doc(currentUser.uid).update({
+        "status": status,
+      });
+    } else {
+      if(kDebugMode){
+        print("No current user");
+      }
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    setStatus(true);
     setName();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.resumed){
+      setStatus(true);
+    }else {
+      setStatus(false);
+    }
   }
 
   @override
@@ -95,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.person_add),
           ),
           IconButton(
-            onPressed: ShowDialog,
+            onPressed: showDialogLogout,
             icon: const Icon(Icons.logout),
           ),
         ],
@@ -119,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: CustomColors.themeColor,
         onTap: _onItemTapped,
       ),
     );

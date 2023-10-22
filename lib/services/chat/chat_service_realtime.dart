@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:thuc_tap_flutter/model/mess_realtime.dart';
 
 class ChatService extends ChangeNotifier {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+  final _database = FirebaseDatabase.instance;
 
   Future<void> sendMessage(String receiverId, String message) async {
     final docSnapshot = await _firestore

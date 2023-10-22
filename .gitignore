@@ -5,6 +5,7 @@
 # Flutter related
 build/
 flutter_export_environment.sh
+.flutter-plugins-dependencies
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -18,6 +19,13 @@ flutter_export_environment.sh
 **/ios/**/*.pbxuser
 **/ios/**/*.perspectivev3
 **/ios/**/.DS_Store
+
+#macos
+macos
+
+#linux
+linux
+
 
 # IntelliJ related
 .idea/

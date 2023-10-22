@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 
 class MyButton extends StatelessWidget {
   final void Function() onTap;
@@ -26,7 +27,7 @@ class MyButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       child: !isLoading
-          ? Text(text, style: const TextStyle(fontSize: 20))
+          ? Text(text, style: const TextStyle(fontSize: 20, color: CustomColors.white))
           : Row(
               mainAxisAlignment:
                   MainAxisAlignment.center, // Căn giữa các mục theo trục chính
@@ -38,12 +39,12 @@ class MyButton extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                   width: 20,
                   child: const CircularProgressIndicator(
-                    color: Colors.blue,
+                    color: CustomColors.themeColor,
                   ),
                 ),
                 Text(
                   textEnabled,
-                  style: const TextStyle(fontSize: 20, color: Colors.blue),
+                  style: const TextStyle(fontSize: 20, color: CustomColors.themeColor),
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 
 class MyButtonOutline extends StatelessWidget {
   final void Function() onTap;
@@ -17,16 +18,16 @@ class MyButtonOutline extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.blue,
+        backgroundColor: CustomColors.white,
+        foregroundColor: CustomColors.themeColor,
         minimumSize: Size(sizeHeigh, 48),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-            side: const BorderSide(color: Colors.blue)),
+            side: const BorderSide(color: CustomColors.themeColor)),
       ),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 20, color: Colors.blue),
+        style: const TextStyle(fontSize: 20, color: CustomColors.themeColor),
       ),
     );
   }

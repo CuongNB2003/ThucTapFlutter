@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart' show BorderRadius, BoxDecoration, BuildContext, Color, Container, EdgeInsets, StatelessWidget, Text, TextStyle, Widget;
+import 'package:flutter/material.dart';
 
 class MyChatBubble extends StatelessWidget {
   final String message;
   final Color color;
+  final Color colorText;
   const MyChatBubble({
     super.key,
-    required this.message, required this.color,
+    required this.message,
+    required this.color,
+    required this.colorText,
   });
 
   @override
@@ -18,7 +21,7 @@ class MyChatBubble extends StatelessWidget {
       ),
       child: Text(
         message,
-        style: const TextStyle(fontSize: 18),
+        style: TextStyle(fontSize: 18, color: colorText),
       ),
     );
   }

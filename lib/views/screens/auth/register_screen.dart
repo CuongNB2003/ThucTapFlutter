@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
 import 'package:thuc_tap_flutter/validate/my_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
 
@@ -27,22 +29,28 @@ class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   void onclickShowPass() {
-    setState(() {
-      _showPass = !_showPass;
-    });
+    if(mounted) {
+      setState(() {
+        _showPass = !_showPass;
+      });
+    }
   }
 
   void onclickShowConfirmPass() {
-    setState(() {
-      _showConfirnPass = !_showConfirnPass;
-    });
+    if(mounted) {
+      setState(() {
+        _showConfirnPass = !_showConfirnPass;
+      });
+    }
   }
 
   void handleCreateAccount() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      if(mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signUpWithEmailAndPassword(
@@ -52,9 +60,11 @@ class RegisterScreenState extends State<RegisterScreen> {
         );
         // ignore: use_build_context_synchronously
         FocusScope.of(context).unfocus();
-        setState(() {
-          _isLoading = false;
-        });
+        if(mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -64,12 +74,16 @@ class RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         );
-        setState(() {
-          _isLoading = false;
-        });
+        if(mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     } else {
-      print('Validation failed');
+      if (kDebugMode) {
+        print('Validation failed');
+      }
     }
   }
 
@@ -100,7 +114,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     const Text(
                       "Create An Account For You!",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: CustomColors.themeColor,
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
                       ),
@@ -116,6 +130,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       icon: const Icon(Icons.perm_identity_outlined),
                       onValidate: (value) => _myValidate.validateName(value),
                       textInputType: TextInputType.text,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 20,
@@ -128,6 +143,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       isRightIcon: false,
                       onValidate: (value) => _myValidate.validateEmail(value),
                       textInputType: TextInputType.text,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 20,
@@ -142,6 +158,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       onValidate: (value) =>
                           _myValidate.validatePassword(value),
                       textInputType: TextInputType.text,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 20,
@@ -159,6 +176,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                         _passCtrl.text,
                       ),
                       textInputType: TextInputType.text,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 50,
@@ -190,7 +208,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
+                                  color: CustomColors.themeColor),
                             ),
                           ),
                         ],

@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
 import 'package:thuc_tap_flutter/validate/my_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_button.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field.dart';
 
@@ -24,16 +26,20 @@ class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   void onclickShowPass() {
-    setState(() {
-      _showPassW = !_showPassW;
-    });
+    if(mounted) {
+      setState(() {
+        _showPassW = !_showPassW;
+      });
+    }
   }
 
   void onclickSignIn() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      if(mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signInWithEmailAndPassword(
@@ -42,9 +48,11 @@ class LoginScreenState extends State<LoginScreen> {
         );
         // ignore: use_build_context_synchronously
         FocusScope.of(context).unfocus();
-        setState(() {
-          _isLoading = false;
-        });
+        if(mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -54,12 +62,16 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
         );
-        setState(() {
-          _isLoading = false;
-        });
+        if(mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     } else {
-      print('Validation failed');
+      if(kDebugMode) {
+        print('Validation failed');
+      }
     }
   }
 
@@ -90,7 +102,7 @@ class LoginScreenState extends State<LoginScreen> {
                     const Text(
                       "Sign In to Continue!",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: CustomColors.themeColor,
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
                       ),
@@ -106,6 +118,7 @@ class LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.email_outlined),
                       onValidate: (value) => _myValidate.validateEmail(value),
                       textInputType: TextInputType.emailAddress,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 20,
@@ -119,6 +132,7 @@ class LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.lock_outline),
                       onValidate: (value) => _myValidate.validatePassword(value),
                       textInputType: TextInputType.text,
+                      enabled: false,
                     ),
                     const SizedBox(
                       height: 50,
@@ -151,7 +165,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: CustomColors.themeColor),
                               ),
                             ),
                           ],

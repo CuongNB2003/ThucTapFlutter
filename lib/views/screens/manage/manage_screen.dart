@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:thuc_tap_flutter/model/nhan_vien.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/detail_nv_screen.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
 
@@ -38,9 +39,11 @@ class ManageScreenState extends State<ManageScreen> {
       // ['data'];
       final List<NhanVien> userList =
           jsonData.map((user) => NhanVien.fromJson(user)).toList();
-      setState(() {
-        _data = userList;
-      });
+      if(mounted){
+        setState(() {
+          _data = userList;
+        });
+      }
     } else {
       throw Exception('Failed to load data from API');
     }
@@ -56,9 +59,11 @@ class ManageScreenState extends State<ManageScreen> {
       // ['data'];
       List<NhanVien> searchResult =
           jsonData.map((user) => NhanVien.fromJson(user)).toList();
-      setState(() {
-        _data = searchResult;
-      });
+      if(mounted){
+        setState(() {
+          _data = searchResult;
+        });
+      }
     } else {
       throw Exception('Failed to load data from API');
     }
@@ -86,7 +91,7 @@ class ManageScreenState extends State<ManageScreen> {
             scrollDirection: Axis.horizontal,
             child: DataTable(
                 border: TableBorder.all(
-                  color: Colors.blue,
+                  color: CustomColors.themeColor,
                   width: 2,
                 ),
                 columns: [
@@ -178,7 +183,7 @@ class ManageScreenState extends State<ManageScreen> {
                   icon: const Icon(
                     Icons.search,
                     size: 35,
-                    color: Colors.blue,
+                    color: CustomColors.themeColor,
                   ),
                   messOrSearch: false),
             ),
@@ -187,29 +192,35 @@ class ManageScreenState extends State<ManageScreen> {
                 child: Container(
                   height: 650,
                   color: Colors.white,
-                  child: Center(
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Center(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 590,
-                                child: currentPage < pages.length
-                                    ? pages[currentPage]
-                                    : null,
-                              ),
-                              NumberPaginator(
-                                numberPages: numberOfPage,
-                                onPageChange: (index) {
-                                  setState(() {
-                                    currentPage = index;
-                                  });
-                                },
-                              )
-                            ],
+                        SizedBox(
+                          height: 590,
+                          child: currentPage < pages.length
+                              ? pages[currentPage]
+                              : null,
+                        ),
+                        NumberPaginator(
+                          numberPages: numberOfPage,
+                          onPageChange: (index) {
+                            if(mounted){
+                              setState(() {
+                                currentPage = index;
+                              });
+                            }
+                          },
+                          config: NumberPaginatorUIConfig(
+                            height: 40,
+                            buttonShape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            buttonSelectedForegroundColor: CustomColors.white,
+                            buttonUnselectedForegroundColor: CustomColors.themeColor,
+                            buttonSelectedBackgroundColor: CustomColors.themeColor,
                           ),
                         )
+
                       ],
                     ),
                   ),

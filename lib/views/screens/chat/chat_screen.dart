@@ -1,22 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thuc_tap_flutter/model/message.dart';
 import 'package:thuc_tap_flutter/services/chat/chat_service.dart';
+import 'package:thuc_tap_flutter/services/notification/notification_services.dart';
 import 'package:thuc_tap_flutter/validate/item_validate.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_chat_bubble.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
 
 class ChatScreen extends StatefulWidget {
-  final String receiveUserEmail;
   final String receiveUserID;
-  final String receiveUserName;
 
   const ChatScreen({
     super.key,
-    required this.receiveUserEmail,
     required this.receiveUserID,
-    required this.receiveUserName,
   });
 
   @override
@@ -27,7 +26,10 @@ class _ChatScreenState extends State<ChatScreen> {
   final _messageCtrl = TextEditingController();
   final ChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final  _validate = MyWidgetValidate();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final _validate = MyWidgetValidate();
+  // khởi tạo thông báo
+  final notificationsService = NotificationsService();
 
   void sendMessage() async {
     if (_messageCtrl.text.isNotEmpty) {
@@ -43,10 +45,47 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    notificationsService.firebaseNotification(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.receiveUserName),
+        title: StreamBuilder(
+          stream: _firestore
+              .collection('users')
+              .doc(widget.receiveUserID)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    snapshot.data?['name'],
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    snapshot.data?['status'] ? 'Online' : 'Offline',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
         actions: [
           IconButton(
             onPressed: () {},
@@ -90,7 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: const Icon(
                 Icons.send,
                 size: 35,
-                color: Colors.blue,
+                color: CustomColors.themeColor,
               ),
               messOrSearch: true,
             ),
@@ -117,16 +156,16 @@ class _ChatScreenState extends State<ChatScreen> {
           return const MyLoading(
             withLoading: 50,
             heightLoading: 50,
-            color: Colors.white,
+            color: CustomColors.themeColor,
           );
         }
 
         return snapshot.hasData && snapshot.data!.isNotEmpty
             ? ListView(
-            reverse: true,
-            children: snapshot.data!
-                .map((message) => _buildMessageItem(message))
-                .toList())
+                reverse: true,
+                children: snapshot.data!
+                    .map((message) => _buildMessageItem(message))
+                    .toList())
             : Container();
       },
     );
@@ -155,13 +194,19 @@ class _ChatScreenState extends State<ChatScreen> {
                   _firebaseAuth.currentUser!.uid,
                   message.senderName,
                 ),
-                style:
-                const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColors.themeColor),
               ),
             ),
             MyChatBubble(
               message: message.message,
               color: _validate.determineColor(
+                message.senderId,
+                _firebaseAuth.currentUser!.uid,
+              ),
+              colorText: _validate.determineColorText(
                 message.senderId,
                 _firebaseAuth.currentUser!.uid,
               ),
