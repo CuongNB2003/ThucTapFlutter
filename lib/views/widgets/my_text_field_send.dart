@@ -19,7 +19,7 @@ class MyTextFieldSend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 100.0), // Đặt chiều cao tối đa là 100.0
+      constraints: const BoxConstraints(maxHeight: 100.0), // Đặt chiều cao tối đa là 100.0
       child: TextField(
         style: const TextStyle(fontSize: 16),
         controller: controller,

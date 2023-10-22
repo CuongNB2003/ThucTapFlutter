@@ -55,9 +55,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         .doc(_firebaseAuth.currentUser!.uid)
         .get();
     if (docSnapshot.data()!.containsKey('name')) {
-      setState(() {
-        userName = docSnapshot['name'];
-      });
+      if(mounted){
+        setState(() {
+          userName = docSnapshot['name'];
+        });
+      }
     } else {
       // Handle the error or set a default value
       userName = "";
@@ -74,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
       print("No current user");
     }
   }
-
 
   @override
   void initState() {

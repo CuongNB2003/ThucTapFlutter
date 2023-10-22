@@ -110,11 +110,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ChatScreen(
-                  receiveUserEmail: data['email'],
-                  receiveUserID: data['uid'],
-                  receiveUserName: data['name'],
-                ),
+                builder: (context) => ChatScreen(receiveUserID: data['uid']),
               ));
         },
       );

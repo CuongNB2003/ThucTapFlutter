@@ -9,15 +9,11 @@ import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
 
 class ChatScreen extends StatefulWidget {
-  final String receiveUserEmail;
   final String receiveUserID;
-  final String receiveUserName;
 
   const ChatScreen({
     super.key,
-    required this.receiveUserEmail,
     required this.receiveUserID,
-    required this.receiveUserName,
   });
 
   @override
