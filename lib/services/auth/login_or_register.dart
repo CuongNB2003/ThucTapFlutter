@@ -15,9 +15,11 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
   bool showLoginScreen = true;
   // toggle between login and register screen
   void toggleScreen() {
-    setState(() {
-      showLoginScreen = !showLoginScreen;
-    });
+    if(mounted) {
+      setState(() {
+        showLoginScreen = !showLoginScreen;
+      });
+    }
   }
   @override
   Widget build(BuildContext context) {

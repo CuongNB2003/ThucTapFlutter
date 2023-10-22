@@ -44,17 +44,22 @@ class _ListChatScreenState extends State<ListChatScreen> {
               ),
               onTap: () {
                 if (_searchUser.text.isNotEmpty) {
-                  setState(() {
-                    _userStream = _firestore
-                        .collection('users')
-                        .where('name', isGreaterThanOrEqualTo: _searchUser.text)
-                        .where('name', isLessThan: '${_searchUser.text}z')
-                        .snapshots();
-                  });
+                  if (mounted) {
+                    setState(() {
+                      _userStream = _firestore
+                          .collection('users')
+                          .where('name',
+                              isGreaterThanOrEqualTo: _searchUser.text)
+                          .where('name', isLessThan: '${_searchUser.text}z')
+                          .snapshots();
+                    });
+                  }
                 } else {
-                  setState(() {
-                    _userStream = _firestore.collection('users').snapshots();
-                  });
+                  if (mounted) {
+                    setState(() {
+                      _userStream = _firestore.collection('users').snapshots();
+                    });
+                  }
                 }
               },
               messOrSearch: false,
@@ -100,12 +105,15 @@ class _ListChatScreenState extends State<ListChatScreen> {
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
-    if (_auth.currentUser!.email != data['email']) {
+    String? name = data['name'];
+    String? email = data['email'];
+
+    if (_auth.currentUser!.email != email) {
       return MyItemChat(
         imageUrl:
             'https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-anh-co-gai-cute-anime-8-min-4.jpg',
-        title: data['name'],
-        content: data['email'],
+        title: name ?? 'No Name',
+        content: email ?? 'No Email',
         onTap: () {
           Navigator.push(
               context,

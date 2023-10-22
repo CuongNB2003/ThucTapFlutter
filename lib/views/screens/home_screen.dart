@@ -29,9 +29,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
     Text('Cài đặt'),
   ];
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if(mounted) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   void showDialogLogout() {
@@ -56,14 +58,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         .doc(_firebaseAuth.currentUser!.uid)
         .get();
     if (docSnapshot.data()!.containsKey('name')) {
-      if(mounted){
-        setState(() {
-          userName = docSnapshot['name'];
-        });
+      if(mounted) {
+        userName = docSnapshot['name'];
       }
     } else {
-      // Handle the error or set a default value
-      userName = "";
+      if(mounted) {
+        userName = "";
+      }
     }
   }
 
@@ -84,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    setName();
     setStatus(true);
+    setName();
   }
 
   @override

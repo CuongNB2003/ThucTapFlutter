@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthService extends ChangeNotifier{
   // instanse of auth
   final _firebaseAuth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+  final _firebaseMessaging = FirebaseMessaging.instance;
   // su ly dang nhap
   Future<UserCredential> signInWithEmailAndPassword(
       String email, String pass) async {
@@ -14,18 +16,14 @@ class AuthService extends ChangeNotifier{
         email: email,
         password: pass,
       );
-
-      // lưu user vào db
+      final fCMToken = await _firebaseMessaging.getToken();
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
         'status' : true,
-
+        'fCMToken' : fCMToken,
       }, SetOptions(merge: true));
-
       return userCredential;
-
-
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
@@ -38,15 +36,15 @@ class AuthService extends ChangeNotifier{
           email: email,
           password: pass,
       );
-
+      final fCMToken = await _firebaseMessaging.getToken();
       // lưu user vào db
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid' : userCredential.user!.uid,
         'email' : email,
-        'name' : name,
         'status' : true,
+        'name' : name,
+        'fCMToken' : fCMToken,
       });
-
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);

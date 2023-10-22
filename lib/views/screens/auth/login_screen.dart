@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
@@ -24,16 +25,20 @@ class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   void onclickShowPass() {
-    setState(() {
-      _showPassW = !_showPassW;
-    });
+    if(mounted) {
+      setState(() {
+        _showPassW = !_showPassW;
+      });
+    }
   }
 
   void onclickSignIn() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      if(mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
       final authService = Provider.of<AuthService>(context, listen: false);
       try {
         await authService.signInWithEmailAndPassword(
@@ -42,9 +47,11 @@ class LoginScreenState extends State<LoginScreen> {
         );
         // ignore: use_build_context_synchronously
         FocusScope.of(context).unfocus();
-        setState(() {
-          _isLoading = false;
-        });
+        if(mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       } catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -54,12 +61,16 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
         );
-        setState(() {
-          _isLoading = false;
-        });
+        if(mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     } else {
-      print('Validation failed');
+      if(kDebugMode) {
+        print('Validation failed');
+      }
     }
   }
 

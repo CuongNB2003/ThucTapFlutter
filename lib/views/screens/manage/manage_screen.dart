@@ -206,9 +206,11 @@ class ManageScreenState extends State<ManageScreen> {
                               NumberPaginator(
                                 numberPages: numberOfPage,
                                 onPageChange: (index) {
-                                  setState(() {
-                                    currentPage = index;
-                                  });
+                                  if(mounted){
+                                    setState(() {
+                                      currentPage = index;
+                                    });
+                                  }
                                 },
                               )
                             ],

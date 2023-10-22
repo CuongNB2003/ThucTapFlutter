@@ -67,12 +67,14 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      _idECtrl.text = widget.data.id.toString();
-      _nameECtrl.text = widget.data.name.toString();
-      _emailECtrl.text = widget.data.email.toString();
-      _phoneECtrl.text = widget.data.phone.toString();
-    });
+    if(mounted) {
+      setState(() {
+        _idECtrl.text = widget.data.id.toString();
+        _nameECtrl.text = widget.data.name.toString();
+        _emailECtrl.text = widget.data.email.toString();
+        _phoneECtrl.text = widget.data.phone.toString();
+      });
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail'),
