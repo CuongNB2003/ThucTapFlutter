@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:thuc_tap_flutter/model/nhan_vien.dart';
 
@@ -8,15 +9,21 @@ String url = 'https://650d823ca8b42265ec2c502e.mockapi.io/api/user';
 Future<void> createNhanVien(NhanVien nhanVien) async {
   final response = await http.post(
     Uri.parse(url),
-    headers:{'Content-Type': 'application/json; charset=UTF-8',},
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
     body: jsonEncode(nhanVien.toJson()),
   );
 
   if (response.statusCode == 201) {
-    print(response.body);
-    print("Thêm thành công");
+    if (kDebugMode) {
+      print(response.body);
+      print("Thêm thành công");
+    }
   } else {
-    print("Thêm thất bại");
+    if (kDebugMode) {
+      print("Thêm thất bại");
+    }
     throw Exception('Failed to create album.');
   }
 }
@@ -32,9 +39,13 @@ Future<void> updateNhanVien(NhanVien nhanVien, String id) async {
   );
 
   if (response.statusCode == 200) {
-    print('sua thanh cong');
+    if (kDebugMode) {
+      print('sua thanh cong');
+    }
   } else {
-    print('Xóa Thất bại');
+    if (kDebugMode) {
+      print('Xóa Thất bại');
+    }
     throw Exception('Failed to update album.');
   }
 }
@@ -49,9 +60,13 @@ Future<void> deleteNhanVien(String id) async {
   );
 
   if (response.statusCode == 200) {
-    print('Xóa thành công');
+    if (kDebugMode) {
+      print('Xóa thành công');
+    }
   } else {
-    print('Failed to delete album.');
+    if (kDebugMode) {
+      print('Failed to delete album.');
+    }
     throw Exception('Failed to delete album.');
   }
 }

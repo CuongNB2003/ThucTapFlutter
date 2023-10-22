@@ -5,7 +5,6 @@ import 'package:thuc_tap_flutter/services/auth/auth_gate.dart';
 import 'package:thuc_tap_flutter/services/auth/auth_service.dart';
 import 'package:thuc_tap_flutter/services/firebase_options.dart';
 import 'package:thuc_tap_flutter/services/notification/notification_service.dart';
-import 'package:thuc_tap_flutter/views/screens/chat/chat_screen.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthGate(),
+      home: const AuthGate(),
       navigatorKey: navigatorKey,
     );
   }

@@ -48,7 +48,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
                     _userStream = _firestore
                         .collection('users')
                         .where('name', isGreaterThanOrEqualTo: _searchUser.text)
-                        .where('name', isLessThan: _searchUser.text + 'z')
+                        .where('name', isLessThan: '${_searchUser.text}z')
                         .snapshots();
                   });
                 } else {
