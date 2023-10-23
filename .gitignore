@@ -1,38 +1,31 @@
-# Flutter/Dart
-**/ios/Flutter/.last_build_id
-**/.dart_tool/
-**/.flutter-plugins
-**/.flutter-plugins-dependencies
-**/build/
-**/flutter_export_environment.sh
+# Dart/Flutter related
+.dart_tool/
+.flutter-plugins
 
-# Android related
-**/android/app/google-services.json
-**/android/key.properties
+# Intellij related
+.idea/
 
 # iOS related
-**/ios/Runner/GeneratedPluginRegistrant.*
-**/ios/Flutter/App.framework
-**/ios/Flutter/Flutter.framework
-**/ios/Flutter/flutter_assets/
-**/ios/Flutter/flutter_export_environment.sh
-**/ios/.symlinks/
-**/ios/Pods/
+ios/.DS_Store
 
-# macOS related
-**/macos/Pods/
-**/macos/.symlinks/
-**/macos/Flutter/ephemeral/
-**/macos/Flutter/.last_build_id
+# Don't commit lock files for pub
+pubspec.lock
 
-# Linux related
-**/linux/flutter/
-**/linux/flutter/generated_plugin_registrant.h
+# Don't commit the following directories created by pub
+# .pub/
 
-# Others
-*.iml
-*.lock
+# Don't commit the packages directory
+.packages
+
+# Miscellaneous
+*.class
 *.log
+*.pyc
+*.swp
+.DS_Store/
+.dart_tool/
+junit.xml
 
-# VS Code related
-.vscode/
+# Don't commit user-specific settings
+.idea/workspace.xml
+
