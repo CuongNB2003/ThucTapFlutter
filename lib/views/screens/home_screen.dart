@@ -60,11 +60,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
         .get();
     if (docSnapshot.data()!.containsKey('name')) {
       if(mounted) {
-        userName = docSnapshot['name'];
+        setState(() {
+          userName = docSnapshot['name'];
+        });
       }
     } else {
       if(mounted) {
-        userName = "";
+        setState(() {
+          userName = "";
+        });
       }
     }
   }

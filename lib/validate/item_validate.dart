@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show Alignment, Color, Colors, CrossAxisAlignment;
+import 'package:flutter/material.dart' show Alignment, Color, CrossAxisAlignment;
 import 'package:thuc_tap_flutter/views/resources/color.dart';
 
 class MyWidgetValidate {
