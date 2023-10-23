@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:thuc_tap_flutter/views/resources/color.dart';
 
 class MyItemChat extends StatelessWidget {
   final void Function() onTap;
   final String imageUrl;
   final String title;
-  final String content;
+  final bool content;
   final Color color;
 
   const MyItemChat({
@@ -43,9 +44,19 @@ class MyItemChat extends StatelessWidget {
                     Text(
                       title,
                       style: TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold, color: color),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: color),
                     ),
-                    Text(content, style: TextStyle(color: color),),
+                    content
+                        ? const Text(
+                      'Online',
+                      style: TextStyle(color: CustomColors.green),
+                    )
+                        : const Text(
+                      'Offline',
+                      style: TextStyle(color: CustomColors.red),
+                    ),
                   ],
                 ),
               ],

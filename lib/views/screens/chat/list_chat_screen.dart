@@ -108,9 +108,9 @@ class _ListChatScreenState extends State<ListChatScreen> {
 
     if (_auth.currentUser!.email != data['email']) {
       return MyItemChat(
-        imageUrl: data['avata'],
-        title: data['name'],
-        content: data['email'],
+        imageUrl: data['avata'] ?? 'đường dẫn ảnh mặc định',
+        title: data['name'] ?? 'Chưa đặt tên',
+        content: data['status'] ?? 'chưa có trạng thái',
         onTap: () {
           Navigator.push(
               context,
@@ -124,4 +124,5 @@ class _ListChatScreenState extends State<ListChatScreen> {
       return Container();
     }
   }
+
 }

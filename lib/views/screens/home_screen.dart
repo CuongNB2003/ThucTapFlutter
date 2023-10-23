@@ -8,6 +8,7 @@ import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/list_chat_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/add_nv_screen.dart';
 import 'package:thuc_tap_flutter/views/screens/manage/manage_screen.dart';
+import 'package:thuc_tap_flutter/views/screens/notification/notification_screen.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_dialog.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
   static const List<Widget> _widgetOptions = <Widget>[
     ListChatScreen(),
     ManageScreen(),
-    Text('Cài đặt'),
+    NotificationScreen(),
   ];
   void _onItemTapped(int index) {
     if(mounted) {
@@ -152,8 +153,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver{
             label: 'Manage',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Setting',
+            icon: Icon(Icons.notification_add),
+            label: 'Notification',
           ),
         ],
         currentIndex: _selectedIndex,

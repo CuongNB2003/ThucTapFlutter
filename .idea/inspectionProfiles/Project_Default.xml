@@ -159,7 +159,6 @@
     <inspection_tool class="JUnit5Converter" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="KDocMissingDocumentation" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="KotlinLoggerInitializedWithForeignClass" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="LongLine" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="Misra" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NewGroovyClassNamingConvention" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NoConstructorMigration" enabled="true" level="ERROR" enabled_by_default="true" />

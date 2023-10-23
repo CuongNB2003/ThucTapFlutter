@@ -57,41 +57,6 @@ class NotificationsService {
     );
   }
 
-  Future<void> showLocalNotification(RemoteMessage message) async {
-    final styleInformation = BigTextStyleInformation(
-      message.notification!.body.toString(),
-      htmlFormatBigText: true,
-      contentTitle: message.notification!.title,
-      htmlFormatTitle: true,
-    );
-
-    final androidDetails = AndroidNotificationDetails(
-      'com.example.thuc_tap_flutter.urgent',
-      'mychannelid',
-      importance: Importance.max,
-      styleInformation: styleInformation,
-      priority: Priority.max,
-    );
-
-    const iosDetails = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-    );
-
-    final notificationDetails = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
-
-    await _flutterLocalNotificationsPlugin.show(
-      0,
-      message.notification!.title,
-      message.notification!.body,
-      notificationDetails,
-      payload: message.data['body'],
-    );
-  }
-
   Future<void> requestPermission() async {
     final messaging = FirebaseMessaging.instance;
 
@@ -135,6 +100,41 @@ class NotificationsService {
         .get();
 
     receiverToken = await getToken.data()!['token'];
+  }
+
+  Future<void> showLocalNotification(RemoteMessage message) async {
+    final styleInformation = BigTextStyleInformation(
+      message.notification!.body.toString(),
+      htmlFormatBigText: true,
+      contentTitle: message.notification!.title,
+      htmlFormatTitle: true,
+    );
+
+    final androidDetails = AndroidNotificationDetails(
+      'com.example.thuc_tap_flutter.urgent',
+      'mychannelid',
+      importance: Importance.max,
+      styleInformation: styleInformation,
+      priority: Priority.max,
+    );
+
+    const iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+    );
+
+    final notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await _flutterLocalNotificationsPlugin.show(
+      0,
+      message.notification!.title,
+      message.notification!.body,
+      notificationDetails,
+      payload: message.data['body'],
+    );
   }
 
   void firebaseNotification(context) {
