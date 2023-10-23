@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a200b4d-7fe6-461d-85f4-cbadfae5b342" name="Changes" comment="update_send_all_notification">
-      <change afterPath="$PROJECT_DIR$/lib/model/user.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/screens/notification/notification_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/screens/notification/notification_view_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/views/widgets/my_text_field_notification.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/auth/auth_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth/auth_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/notification/notification_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/notification/notification_services.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/resources/color.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/resources/color.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/screens/chat/list_chat_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/screens/chat/list_chat_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/widgets/my_item_chat.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/widgets/my_item_chat.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-    </list>
+    <list default="true" id="3a200b4d-7fe6-461d-85f4-cbadfae5b342" name="Changes" comment="update_send_all_notification" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,7 +113,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698041287133</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update_send_all_notification">
+      <created>1698072166340</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698072166340</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update_send_all_notification">
+      <created>1698072193407</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698072193407</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
