@@ -6,6 +6,7 @@ import 'package:thuc_tap_flutter/services/chat/chat_service.dart';
 import 'package:thuc_tap_flutter/services/notification/notification_services.dart';
 import 'package:thuc_tap_flutter/validate/item_validate.dart';
 import 'package:thuc_tap_flutter/views/resources/color.dart';
+import 'package:thuc_tap_flutter/views/widgets/my_appbar_chat.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_chat_bubble.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_loading.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_text_field_send.dart';
@@ -31,6 +32,12 @@ class _ChatScreenState extends State<ChatScreen> {
   // khởi tạo thông báo
   final notificationsService = NotificationsService();
 
+  @override
+  void initState() {
+    super.initState();
+    notificationsService.firebaseNotification(context);
+  }
+
   void sendMessage() async {
     if (_messageCtrl.text.isNotEmpty) {
       await _chatService.sendMessage(
@@ -39,15 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
       );
       // sau khi gửi thì xóa text
       _messageCtrl.clear();
-      // ignore: use_build_context_synchronously
-      FocusScope.of(context).unfocus();
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    notificationsService.firebaseNotification(context);
   }
 
   @override
@@ -61,25 +60,10 @@ class _ChatScreenState extends State<ChatScreen> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.data != null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    snapshot.data?['name'],
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    snapshot.data?['status'] ? 'Online' : 'Offline',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ],
+              return MyAppbarChat(
+                avata: snapshot.data?['avata'],
+                name: snapshot.data?['name'],
+                status: snapshot.data?['status'],
               );
             } else {
               return Container();
@@ -128,8 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
               onTap: sendMessage,
               icon: const Icon(
                 Icons.send,
-                size: 35,
-                color: CustomColors.themeColor,
+                size: 32,
               ),
               messOrSearch: true,
             ),

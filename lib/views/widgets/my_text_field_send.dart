@@ -8,18 +8,18 @@ class MyTextFieldSend extends StatelessWidget {
   final bool messOrSearch;
 
   const MyTextFieldSend({
-    super.key,
+    Key? key,
     required this.controller,
     required this.hintText,
     required this.onTap,
     required this.icon,
     required this.messOrSearch,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 100.0), // Đặt chiều cao tối đa là 100.0
+      constraints: const BoxConstraints(maxHeight: 100.0),
       child: TextField(
         style: const TextStyle(fontSize: 16),
         controller: controller,
@@ -33,12 +33,20 @@ class MyTextFieldSend extends StatelessWidget {
             icon: icon,
             onPressed: onTap,
           ),
+          prefixIcon: messOrSearch
+              ? IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.emoji_emotions),
+          )
+              : null,
           hintText: hintText,
           contentPadding:
           const EdgeInsets.fromLTRB(20, 10, 0, 10),
         ),
-        maxLines: messOrSearch ? null : 1,
-        keyboardType: messOrSearch ? TextInputType.multiline : TextInputType.text,
+        maxLines:
+        messOrSearch ? null : 1,
+        keyboardType:
+        messOrSearch ? TextInputType.multiline : TextInputType.text,
       ),
     );
   }

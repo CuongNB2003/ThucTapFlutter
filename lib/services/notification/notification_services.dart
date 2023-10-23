@@ -9,6 +9,14 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/chat_screen.dart';
 
+const channel = AndroidNotificationChannel(
+    'high_importance_channel',
+    'Hign Importance Notifications',
+    description:
+    'This channel is used for important notifications.',
+    importance: Importance.high,
+    playSound: true);
+
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (kDebugMode) {
     print('id người nhận: ${message.data['senderId']}');

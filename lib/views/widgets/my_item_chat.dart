@@ -50,7 +50,7 @@ class MyItemChat extends StatelessWidget {
                 ),
               ],
             ),
-            const Divider(color: Colors.grey),
+            Divider(color: color),
           ],
         ),
       ),

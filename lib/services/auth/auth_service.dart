@@ -21,6 +21,7 @@ class AuthService extends ChangeNotifier{
         'uid' : userCredential.user!.uid,
         'email' : email,
         'status' : true,
+        'avata' : 'https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-anh-co-gai-cute-anime-8-min-4.jpg',
       }, SetOptions(merge: true));
       await notificationService.requestPermission();
       await notificationService.getToken();
@@ -43,6 +44,7 @@ class AuthService extends ChangeNotifier{
         'email' : email,
         'status' : true,
         'name' : name,
+        'avata' : 'https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-anh-co-gai-cute-anime-8-min-4.jpg'
       });
       await notificationService.requestPermission();
       await notificationService.getToken();

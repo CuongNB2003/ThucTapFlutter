@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:thuc_tap_flutter/validate/item_validate.dart';
 import 'package:thuc_tap_flutter/views/resources/color.dart';
 import 'package:thuc_tap_flutter/views/screens/chat/chat_screen.dart';
 import 'package:thuc_tap_flutter/views/widgets/my_item_chat.dart';
@@ -41,7 +40,7 @@ class _ListChatScreenState extends State<ListChatScreen> {
               hintText: 'Enter name to search',
               icon: const Icon(
                 Icons.search,
-                size: 35,
+                size: 32,
                 color: CustomColors.themeColor,
               ),
               onTap: () {
@@ -107,15 +106,11 @@ class _ListChatScreenState extends State<ListChatScreen> {
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
-    String? name = data['name'];
-    String? email = data['email'];
-
-    if (_auth.currentUser!.email != email) {
+    if (_auth.currentUser!.email != data['email']) {
       return MyItemChat(
-        imageUrl:
-            'https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/hinh-anh-co-gai-cute-anime-8-min-4.jpg',
-        title: name ?? 'No Name',
-        content: email ?? 'No Email',
+        imageUrl: data['avata'],
+        title: data['name'],
+        content: data['email'],
         onTap: () {
           Navigator.push(
               context,

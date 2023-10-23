@@ -39,7 +39,7 @@ class ManageScreenState extends State<ManageScreen> {
       // ['data'];
       final List<NhanVien> userList =
           jsonData.map((user) => NhanVien.fromJson(user)).toList();
-      if(mounted){
+      if (mounted) {
         setState(() {
           _data = userList;
         });
@@ -59,7 +59,7 @@ class ManageScreenState extends State<ManageScreen> {
       // ['data'];
       List<NhanVien> searchResult =
           jsonData.map((user) => NhanVien.fromJson(user)).toList();
-      if(mounted){
+      if (mounted) {
         setState(() {
           _data = searchResult;
         });
@@ -177,15 +177,16 @@ class ManageScreenState extends State<ManageScreen> {
             ),
             Center(
               child: MyTextFieldSend(
-                  controller: searchUser,
-                  hintText: 'Nhập tên nhân viên',
-                  onTap: () => searchData(searchUser.text),
-                  icon: const Icon(
-                    Icons.search,
-                    size: 35,
-                    color: CustomColors.themeColor,
-                  ),
-                  messOrSearch: false),
+                controller: searchUser,
+                hintText: 'Nhập tên nhân viên',
+                onTap: () => searchData(searchUser.text),
+                icon: const Icon(
+                  Icons.search,
+                  size: 32,
+                  color: CustomColors.themeColor,
+                ),
+                messOrSearch: false,
+              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -204,7 +205,7 @@ class ManageScreenState extends State<ManageScreen> {
                         NumberPaginator(
                           numberPages: numberOfPage,
                           onPageChange: (index) {
-                            if(mounted){
+                            if (mounted) {
                               setState(() {
                                 currentPage = index;
                               });
@@ -216,11 +217,12 @@ class ManageScreenState extends State<ManageScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             buttonSelectedForegroundColor: CustomColors.white,
-                            buttonUnselectedForegroundColor: CustomColors.themeColor,
-                            buttonSelectedBackgroundColor: CustomColors.themeColor,
+                            buttonUnselectedForegroundColor:
+                                CustomColors.themeColor,
+                            buttonSelectedBackgroundColor:
+                                CustomColors.themeColor,
                           ),
                         )
-
                       ],
                     ),
                   ),
