@@ -6,6 +6,7 @@
 build/
 flutter_export_environment.sh
 .flutter-plugins-dependencies
+.flutter-plugins
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -21,10 +22,10 @@ flutter_export_environment.sh
 **/ios/**/.DS_Store
 
 #macos
-macos
+.macos/Flutter
 
 #linux
-linux
+linux/flutter
 
 
 # IntelliJ related
