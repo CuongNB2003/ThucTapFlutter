@@ -21,11 +21,11 @@ flutter_export_environment.sh
 **/ios/**/*.perspectivev3
 **/ios/**/.DS_Store
 
-#macos
-.macos/Flutter
+# Ignore Linux files
+linux/*
 
-#linux
-linux/flutter
+# Ignore macOS files
+macos/*
 
 
 # IntelliJ related
