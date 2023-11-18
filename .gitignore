@@ -33,6 +33,7 @@
 *.iml
 *.lock
 *.log
+*.xml
 
 # VS Code related
 .vscode/
