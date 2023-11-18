@@ -6,6 +6,9 @@
 **/build/
 **/flutter_export_environment.sh
 **/workspace.xml
+**/modules.xml
+**/misc.xml
+**/
 
 # Android related
 **/android/app/google-services.json
@@ -25,6 +28,8 @@
 **/macos/.symlinks/
 **/macos/Flutter/ephemeral/
 **/macos/Flutter/.last_build_id
+**/macos/Flutter/GeneratedPluginRegistrant.*
+
 
 # Linux related
 **/linux/flutter/
