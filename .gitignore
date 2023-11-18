@@ -5,6 +5,7 @@
 **/.flutter-plugins-dependencies
 **/build/
 **/flutter_export_environment.sh
+**/workspace.xml
 
 # Android related
 **/android/app/google-services.json
