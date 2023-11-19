@@ -8,7 +8,8 @@
 **/workspace.xml
 **/modules.xml
 **/misc.xml
-**/
+**/idea/libraries/Flutter_Plugins.xml
+**/Flutter/GeneratedPluginRegistrant.swift
 
 # Android related
 **/android/app/google-services.json
@@ -28,7 +29,6 @@
 **/macos/.symlinks/
 **/macos/Flutter/ephemeral/
 **/macos/Flutter/.last_build_id
-**/macos/Flutter/GeneratedPluginRegistrant.*
 
 
 # Linux related
